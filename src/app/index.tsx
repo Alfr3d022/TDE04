@@ -1,5 +1,7 @@
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { useState } from "react";
+import { Input } from "@/components/Input"
+
 
 export default function Index() {
   const [text, setText] = useState('');
@@ -8,7 +10,7 @@ export default function Index() {
     <View style={styles.container}>
       <View style={styles.containerSetup}>
         <Text style={styles.text}>Escreva os itens que deseja salvar!</Text>
-        <TextInput
+        <Input
             style={styles.input}
             onChangeText={(newText) => setText(newText)}
             placeholder="Digite algo..."
