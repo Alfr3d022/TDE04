@@ -13,10 +13,14 @@ export default function Index() {
             onChangeText={(newText) => setText(newText)}
             placeholder="Digite algo..."
           />
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.btnText}>Salvar</Text>
-        </TouchableOpacity>
-        <Text>Testando 123...</Text>
+        <View style={styles.buttons}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.btnText}>Salvar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.btnText}>Listar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -44,11 +48,15 @@ const styles = StyleSheet.create({
     width: 250,
     height: 40
   },
+  buttons:{
+    flexDirection: 'row'
+  },
   button:{
     marginTop: 15,
     backgroundColor: '#57D93B',
     padding: 10,
-    borderRadius: 40
+    borderRadius: 40,
+    marginHorizontal: 5
   },
   btnText:{ 
     fontSize: 15,
