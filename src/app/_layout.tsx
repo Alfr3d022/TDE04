@@ -1,15 +1,12 @@
-import { Stack } from 'expo-router';
+import { Slot } from "expo-router"
+import { SQLiteProvider } from "expo-sqlite"
 
+import { initializeDatabase } from "@/database/initializeDatabase"
 
-export default function RootLayout() {
+export default function Layout() {
   return (
-      <Stack>
-        <Stack.Screen name="index" 
-          options={{ headerShown: false 
-        }} />
-        <Stack.Screen name="tabs/list" 
-          options={{ headerShown: false 
-        }} />
-      </Stack>
-  );
+    <SQLiteProvider databaseName="myDatabase.db" onInit={initializeDatabase}>
+      <Slot />
+    </SQLiteProvider>
+  )
 }
