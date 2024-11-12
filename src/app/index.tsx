@@ -1,15 +1,16 @@
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
 import { useState } from "react";
 import { Input } from "@/components/Input"
-import { useProductDatabase } from "@/database/useProductDatabase"
+import { useProductDatabase, ProductDatabase } from "@/database/useProductDatabase"
 
 
 
 export default function Index() {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
+  const [search, setSearch] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<ProductDatabase[]>([]);
 
   const productDatabase = useProductDatabase ()
   
@@ -26,6 +27,15 @@ export default function Index() {
       })
 
       Alert.alert("Produto cadastrado com o ID: " + response.insertedRowId)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function list() {
+    try {
+      const response = await productDatabase.searchByName(search)
+      setProducts(response)
     } catch (error) {
       console.log(error)
     }
