@@ -3,7 +3,6 @@ import { useSQLiteContext } from "expo-sqlite"
 export type ProductDatabase = {
   id: number
   name: string
-  quantity: number
 }
 
 export function useProductDatabase() {
@@ -11,13 +10,12 @@ export function useProductDatabase() {
 
   async function create(data: Omit<ProductDatabase, "id">) {
     const statement = await database.prepareAsync(
-      "INSERT INTO products (name, quantity) VALUES ($name, $quantity)"
+      "INSERT INTO products (name) VALUES ($name)"
     )
 
     try {
       const result = await statement.executeAsync({
         $name: data.name,
-        $quantity: data.quantity,
       })
 
       const insertedRowId = result.lastInsertRowId.toLocaleString()
@@ -45,32 +43,6 @@ export function useProductDatabase() {
     }
   }
 
-  async function update(data: ProductDatabase) {
-    const statement = await database.prepareAsync(
-      "UPDATE products SET name = $name, quantity = $quantity WHERE id = $id"
-    )
-
-    try {
-      await statement.executeAsync({
-        $id: data.id,
-        $name: data.name,
-        $quantity: data.quantity,
-      })
-    } catch (error) {
-      throw error
-    } finally {
-      await statement.finalizeAsync()
-    }
-  }
-
-  async function remove(id: number) {
-    try {
-      await database.execAsync("DELETE FROM products WHERE id = " + id)
-    } catch (error) {
-      throw error
-    }
-  }
-
   async function show(id: number) {
     try {
       const query = "SELECT * FROM products WHERE id = ?"
@@ -85,5 +57,5 @@ export function useProductDatabase() {
     }
   }
 
-  return { create, searchByName, update, remove, show }
+  return { create, searchByName, show }
 }
