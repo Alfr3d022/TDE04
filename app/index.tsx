@@ -16,6 +16,7 @@ export default function Index() {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.btnText}>Salvar</Text>
         </TouchableOpacity>
+        <Text>Testando 123...</Text>
       </View>
     </View>
   );
