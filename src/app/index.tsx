@@ -2,6 +2,8 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from "reac
 import { useState } from "react";
 import { Input } from "@/components/Input"
 import { useProductDatabase, ProductDatabase } from "@/database/useProductDatabase"
+import { Ionicons } from "@expo/vector-icons";
+
 
 
 
@@ -44,20 +46,27 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <View style={styles.containerSetup}>
-        <Text style={styles.text}>Escreva os itens que deseja salvar!</Text>
-        <Input
-            style={styles.inputProduct}
-            // onChangeText={(newId) => setId(newId)}
-            placeholder="Produto" onChangeText={setName} 
-          />
+        <View style={styles.title}>
+          <Ionicons name="bag-handle-outline" style={styles.iconTitle}/>
+          <Text style={styles.txtTitle}>Lista de Compras</Text>
+        </View>
+        <View>
+          <Text style={styles.text}>Produto</Text>
           <Input
-            style={styles.inputQuantity}
-            // onChangeText={(newId) => setId(newId)}
-            placeholder="Quantidade" onChangeText={setQuantity} 
+              style={styles.inputProduct}
+              // onChangeText={(newId) => setId(newId)}
+              placeholder=" Digite o produto..." onChangeText={setName} 
+            />
+          <Text style={styles.text}>Quantidade</Text>
+          <Input
+              style={styles.inputQuantity}
+              // onChangeText={(newId) => setId(newId)}
+              placeholder=" Digite a quantidade..." onChangeText={setQuantity} 
           />
+        </View>
         <View style={styles.buttons}>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.btnText} onPress={create}>Salvar</Text>
+            <Text style={styles.btnText} onPress={create}>+ Salvar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
             <Text style={styles.btnText}>Listar</Text>
@@ -73,35 +82,51 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#29E18B'
+    backgroundColor: '#001133'
   },
   containerSetup:{
-    backgroundColor: 'white',
+    backgroundColor: '#E5E5E5',
     padding: 50,
-    borderRadius: 40,
+    borderRadius: 30,
     alignItems: 'center',
+  },
+  title:{
+    flexDirection: 'row'
+  },
+  txtTitle:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#6366F1',
   },
   text:{
     fontSize: 15,
-    marginBottom: 20
+    marginTop: 15,
+    marginBottom: 4
+  },
+  iconTitle:{
+    fontSize: 25,
+    paddingHorizontal: 10,
+    color: '#6366F1',
   },
   inputProduct:{
-    borderWidth: 1,
-    width: 250,
-    height: 40
-  },
-  inputQuantity:{
-    borderWidth: 1,
+    borderRadius: 10,
     width: 250,
     height: 40,
-    marginTop: 15,
+    backgroundColor: 'white'
+  },
+  inputQuantity:{
+    borderRadius: 10,
+    width: 250,
+    height: 40,
+    backgroundColor: 'white'
   },
   buttons:{
     flexDirection: 'row'
   },
   button:{
     marginTop: 15,
-    backgroundColor: '#57D93B',
+    backgroundColor: '#6366F1',
     padding: 10,
     borderRadius: 40,
     marginHorizontal: 5
@@ -109,7 +134,8 @@ const styles = StyleSheet.create({
   btnText:{ 
     fontSize: 15,
     margin: 5,
-    marginHorizontal: 20
+    marginHorizontal: 20,
+    color: 'white',
   }
   
 });
