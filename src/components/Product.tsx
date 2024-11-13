@@ -16,9 +16,11 @@ export function Product({ data, onDelete, onOpen, ...rest }: Props) {
       style={{
         backgroundColor: "#CECECE",
         padding: 24,
-        borderRadius: 5,
-        gap: 12,
+        borderRadius: 20,
         flexDirection: "row",
+        gap: 16,
+        marginBottom: 16,
+        width: 300,
       }}
       {...rest}
     >

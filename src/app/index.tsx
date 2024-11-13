@@ -90,12 +90,7 @@ export default function Index() {
           <Product 
             data={item}
           />
-        )}
-        contentContainerStyle={{ 
-          gap: 16,
-          marginBottom: 16,
-          width: 300,
-        }}
+        )}        
         showsVerticalScrollIndicator={true}
       />
     </View>
