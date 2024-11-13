@@ -23,7 +23,7 @@ export function Product({ data, onDelete, onOpen, ...rest }: Props) {
       {...rest}
     >
       <Text style={{ flex: 1 }}>
-        {data.quantity} - {data.name}
+        {data.quantity}x {data.name}
       </Text>
 
       <TouchableOpacity onPress={onDelete}>

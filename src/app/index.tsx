@@ -1,7 +1,9 @@
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert, FlatList } from "react-native";
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert, FlatList, ScrollView, SectionList } from "react-native";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/Input"
 import { useProductDatabase, ProductDatabase } from "@/database/useProductDatabase"
+import { Ionicons } from "@expo/vector-icons";
+import { Product } from "@/components/Product";
 
 
 
@@ -46,59 +48,69 @@ export default function Index() {
   }, [search])
 
   return (
-    <View>
-      <View style={styles.containerSetup}>
-        <Text style={styles.text}>Escreva os itens que deseja salvar!</Text>
+    <View style={styles.container}>
+      <View style={styles.title}>
+        <Ionicons name="bag-handle-outline" style={styles.iconTitle}/>
+        <Text style={styles.txtTitle}>Lista de Compras</Text>
+      </View>
+      <View>
+        <Text style={styles.text}>Produto</Text>
         <Input
             style={styles.inputProduct}
             // onChangeText={(newId) => setId(newId)}
-            placeholder="Produto" onChangeText={setName} 
+            placeholder="Digite o produto..." onChangeText={setName} 
           />
-          <Input
+        <Text style={styles.text}>Quantidade</Text>
+        <Input
             style={styles.inputQuantity}
             // onChangeText={(newId) => setId(newId)}
-            placeholder="Quantidade" onChangeText={setQuantity} 
-          />
-        </View>
-        <View style={styles.buttons}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.btnText} onPress={create}>Salvar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.btnText}>Listar</Text>
-          </TouchableOpacity>
-        </View>
+            placeholder="Digite a quantidade..." onChangeText={setQuantity} 
+        />
+      </View>
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.button}>
+          <Ionicons name="add-circle-outline" style={styles.iconButton}/>
+          <Text style={styles.btnText} onPress={create}>Salvar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Ionicons name="list-outline" style={styles.iconButton}/>
+          <Text style={styles.btnText}>Listar</Text>
+        </TouchableOpacity>
+      </View>
+      <View>
+        <Text style={styles.text}>Pesquisar produto</Text>
         <Input 
-            style={styles.inputSearch}
-            placeholder=" Pesquisar" onChangeText={setSearch} />
+          style={styles.inputSearch}
+          placeholder="Pesquisar..." onChangeText={setSearch} />
       </View>
       <FlatList
         data={products}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
-          <Product
+          <Product 
             data={item}
           />
         )}
-        contentContainerStyle={{ gap: 16 }}
+        contentContainerStyle={{ 
+          gap: 16,
+          marginBottom: 16,
+          width: 300,
+        }}
+        showsVerticalScrollIndicator={true}
       />
-      </View>
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#001133'
-  },
-  containerSetup:{
     backgroundColor: '#E5E5E5',
-    padding: 50,
+    padding: 40,
     borderRadius: 30,
-    alignItems: 'center',
   },
   title:{
     flexDirection: 'row'
@@ -112,7 +124,7 @@ const styles = StyleSheet.create({
   text:{
     fontSize: 15,
     marginTop: 15,
-    marginBottom: 4
+    marginBottom: 4,
   },
   iconTitle:{
     fontSize: 25,
@@ -120,22 +132,26 @@ const styles = StyleSheet.create({
     color: '#6366F1',
   },
   inputProduct:{
+    padding: 5,
     borderRadius: 10,
     width: 250,
     height: 40,
     backgroundColor: 'white'
   },
   inputQuantity:{
+    padding: 5,
     borderRadius: 10,
     width: 250,
     height: 40,
     backgroundColor: 'white'
   },
   inputSearch:{
-    borderWidth: 1,
+    padding: 5,
+    borderRadius: 10,
     width: 250,
     height: 40,
-    marginTop: 15,
+    backgroundColor: 'white',
+    marginBottom: 20,
   },
   buttons:{
     flexDirection: 'row'
@@ -144,14 +160,21 @@ const styles = StyleSheet.create({
     marginTop: 15,
     backgroundColor: '#6366F1',
     padding: 10,
+    paddingHorizontal: 15,
     borderRadius: 40,
-    marginHorizontal: 5
+    marginHorizontal: 5,
+    flexDirection: 'row'
   },
   btnText:{ 
     fontSize: 15,
     margin: 5,
-    marginHorizontal: 20,
+    marginHorizontal: 2,
     color: 'white',
+  },
+  iconButton:{
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'white'
   }
   
 });
