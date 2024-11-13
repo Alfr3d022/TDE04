@@ -1,7 +1,8 @@
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
-import { useState } from "react";
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert, FlatList } from "react-native";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/Input"
 import { useProductDatabase, ProductDatabase } from "@/database/useProductDatabase"
+import { Product } from "@/components/Product";
 
 
 
@@ -41,29 +42,43 @@ export default function Index() {
     }
   }
 
+  useEffect(() => {
+    list()
+  }, [search])
+
   return (
-    <View style={styles.container}>
+    <View >
       <View style={styles.containerSetup}>
         <Text style={styles.text}>Escreva os itens que deseja salvar!</Text>
         <Input
             style={styles.inputProduct}
             // onChangeText={(newId) => setId(newId)}
-            placeholder="Produto" onChangeText={setName} 
+            placeholder=" Produto" onChangeText={setName} 
           />
           <Input
             style={styles.inputQuantity}
             // onChangeText={(newId) => setId(newId)}
-            placeholder="Quantidade" onChangeText={setQuantity} 
+            placeholder=" Quantidade" onChangeText={setQuantity} 
           />
         <View style={styles.buttons}>
           <TouchableOpacity style={styles.button}>
             <Text style={styles.btnText} onPress={create}>Salvar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.btnText}>Listar</Text>
-          </TouchableOpacity>
+          </TouchableOpacity>                      
         </View>
+        <Input 
+            style={styles.inputSearch}
+            placeholder=" Pesquisar" onChangeText={setSearch} />
       </View>
+      <FlatList
+        data={products}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => (
+          <Product
+            data={item}
+          />
+        )}
+        contentContainerStyle={{ gap: 16 }}
+      />
     </View>
   );
 }
@@ -91,6 +106,12 @@ const styles = StyleSheet.create({
     height: 40
   },
   inputQuantity:{
+    borderWidth: 1,
+    width: 250,
+    height: 40,
+    marginTop: 15,
+  },
+  inputSearch:{
     borderWidth: 1,
     width: 250,
     height: 40,
