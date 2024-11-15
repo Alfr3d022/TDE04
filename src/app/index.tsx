@@ -72,13 +72,9 @@ export default function Index() {
         />
       </View>
       <View style={styles.buttons}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={create}>
           <Ionicons name="add-circle-outline" style={styles.iconButton}/>
-          <Text style={styles.btnText} onPress={create}>Salvar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Ionicons name="list-outline" style={styles.iconButton}/>
-          <Text style={styles.btnText}>Listar</Text>
+          <Text style={styles.btnText} >Salvar</Text>
         </TouchableOpacity>
       </View>
       <View>
