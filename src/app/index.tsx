@@ -22,17 +22,21 @@ export default function Index() {
       if (isNaN(Number(quantity))) {
         return Alert.alert("Quantidade", "A quantidade precisa ser um número!")
       }
-
+  
       const response = await productDatabase.create({
         name,
         quantity: Number(quantity),
       })
-
+  
       Alert.alert("Produto cadastrado com o ID: " + response.insertedRowId)
+      
+      // Chama a função list() para atualizar a lista de produtos
+      list()
     } catch (error) {
       console.log(error)
     }
   }
+  
 
   async function list() {
     try {
